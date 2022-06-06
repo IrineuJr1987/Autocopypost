@@ -41,3 +41,6 @@ for hastag in hastag_lista:#para cada # na lista
         wget.download(image, salvar)#salvando
         counter +=1
 
+teste = 2
+#teste
+
