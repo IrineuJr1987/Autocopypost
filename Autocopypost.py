@@ -11,11 +11,22 @@ from selenium.webdriver.common.keys import Keys
 import time
 import os
 import wget
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
 
 
-options=webdriver.ChromeOptions()
-options.add_argument("user-data-dir=C:/Users/Bill/AppData/Local/Google/Chrome/User Data")
-driver=webdriver.Chrome('chromedriver.exe',chrome_options=options)
+options = Options()
+options.add_experimental_option("detach", True)
+
+
+options.add_argument("--profile-directory=Default")
+options.add_argument("--user-data-dir=C:\\Users\\Bill\\AppData\\Local\\Google\\Chrome\\User Data")
+options.add_argument("--headless")
+
+driver = webdriver.Chrome(options=options, service=Service(ChromeDriverManager().install()))
+
+
 driver.get("https://www.instagram.com/")
 
 hastag_lista = ['gamerbrasil']#lista com as hastag que ele vai trabalhar
@@ -27,7 +38,7 @@ for hastag in hastag_lista:#para cada # na lista
     wait=WebDriverWait(driver,100)
     time.sleep(4)
     driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")#rolar a pagina para baixo
-
+    time.sleep(4)
     images = driver.find_elements(By.TAG_NAME,'img')
     images = [image.get_attribute('src') for image in images]#encontrando as img
 
@@ -37,10 +48,11 @@ for hastag in hastag_lista:#para cada # na lista
     counter = 0
 
     for image in images:#para cada imagem faça...
-        salvar = os.path.join(caminho, hastag_lista[tag] + str(counter)+ '.jpg')#escolhendo onde salvar e como ficar o nome do arquivo
-        wget.download(image, salvar)#salvando
-        counter +=1
+        if counter > 3:
+            salvar = os.path.join(caminho, hastag_lista[tag] + str(counter)+ '.jpg')#escolhendo onde salvar e como ficar o nome do arquivo
+            #print(image)
+            wget.download(image, salvar)#salvando
+        counter +=1    
+driver.quit()
 
-teste = 2
-#teste
 
