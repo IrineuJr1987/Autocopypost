@@ -18,7 +18,7 @@ options.add_argument("user-data-dir=C:/Users/Bill/AppData/Local/Google/Chrome/Us
 driver=webdriver.Chrome('chromedriver.exe',chrome_options=options)
 driver.get("https://www.instagram.com/")
 
-hastag_lista = ['gamebrasil']#lista com as hastag que ele vai trabalhar
+hastag_lista = ['gamerbrasil']#lista com as hastag que ele vai trabalhar
 tag = -1
 
 for hastag in hastag_lista:#para cada # na lista
