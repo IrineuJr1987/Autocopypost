@@ -29,13 +29,15 @@ driver = webdriver.Chrome(options=options, service=Service(ChromeDriverManager()
 
 driver.get("https://www.instagram.com/")
 
-hastag_lista = ['gamerbrasil']#lista com as hastag que ele vai trabalhar
+hastag_lista = ['gamesbrasil']#lista com as hastag que ele vai trabalhar
 tag = -1
 
 for hastag in hastag_lista:#para cada # na lista
     tag=tag+1
     driver.get('https://www.instagram.com/explore/tags/' + hastag_lista[tag] + '/')#entrar na pagina da tag
     wait=WebDriverWait(driver,100)
+    time.sleep(4)
+    driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")#rolar a pagina para baixo
     time.sleep(4)
     driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")#rolar a pagina para baixo
     time.sleep(4)
